@@ -10,6 +10,7 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain=nightly --profile=minimal -y
 ENV PATH=/root/.cargo/bin:$PATH
 RUN rustup toolchain add nightly
+RUN rustup default nightly
 RUN rustup component add rustfmt --toolchain nightly
 RUN rustup component add rust-src --toolchain nightly
 RUN rustup component add llvm-tools-preview --toolchain nightly
