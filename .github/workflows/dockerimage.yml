@@ -1,0 +1,27 @@
+name: Docker Image CI
+
+on: 
+  push:
+    branches:
+      - 'master'
+  schedule:
+    - cron: '40 4 * * *'   # every day at 4:40
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker image
+      run: |
+        docker build . --file Dockerfile \
+          --tag quay.io/haraldh/rust-nightly-qemu-x86:latest          
+
+    - name: Login to quay.io
+      run: docker login -u "${{ secrets.QUAY_IO_USERNAME }}" -p "${{ secrets.QUAY_IO_PASSWORD }}" quay.io
+
+    - name: Push to quay.io
+      run: docker push quay.io/haraldh/rust-nightly-qemu-x86:latest
