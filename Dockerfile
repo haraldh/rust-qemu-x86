@@ -5,7 +5,7 @@ USER root
 RUN apt-get update --no-install-recommends
 RUN apt-get install --no-install-recommends -y \
         clang lld qemu-system-x86 \
-        ca-certificates curl file python
+        ca-certificates curl file python3
 RUN rm -rf /var/lib/apt/lists/*
 RUN curl -L https://github.com/qemu/qemu/raw/stable-4.0/pc-bios/pvh.bin > /usr/share/qemu/pvh.bin 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --default-toolchain=nightly --profile=minimal -y
